@@ -150,7 +150,7 @@ function App() {
           </div>
           <div className="flex justify-center gap-4 mb-12 fade-in">
             <button
-              onClick={() => window.open('./assets/CV resume.pdf')}
+              onClick={() => window.open('/CV resume.pdf')}
               className="bg-transparent hover:bg-white text-white hover:text-gray-900 font-semibold py-3 px-8 border-2 border-white hover:border-transparent rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2"
             >
               <FileText size={20} />
