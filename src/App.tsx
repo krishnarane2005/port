@@ -184,16 +184,16 @@ function App() {
               About Me
             </h2>
           </div>
-          <div className="flex flex-col md:flex-row items-center gap-12">
-            <div className="md:w-1/2 animate-on-scroll opacity-0 slide-in-left">
+          <div className="flex flex-col md:flex-row items-center gap-8">
+            <div className="w-full md:w-1/2 animate-on-scroll opacity-0 slide-in-left">
               <img
                 src="https://i.postimg.cc/057sKLNs/IMG20240309170845.jpg"
                 alt="Krishna Rane"
-                className="profile-image w-full h-full object-cover"
+                className="profile-image w-full max-w-[400px] h-auto mx-auto object-cover shadow-lg rounded-lg"
               />
             </div>
-            <div className="md:w-1/2 animate-on-scroll opacity-0 slide-in-right">
-              <div className="grid grid-cols-2 gap-4 mb-8">
+            <div className="w-full md:w-1/2 animate-on-scroll opacity-0 slide-in-right">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
                 <div className="p-6 bg-gray-50 rounded-lg text-center transition-all duration-300 hover:shadow-lg hover:bg-white">
                   <h3 className="font-semibold text-lg mb-2">Experience</h3>
                   <p className="text-gray-600">
@@ -212,18 +212,17 @@ function App() {
                 </div>
               </div>
               <p className="text-gray-600 text-lg leading-relaxed">
-                I am a passionate frontend developer and tech enthusiast
-                currently pursuing my B.Tech at MIT Academy of Engineering. With
-                a keen eye for design and a love for creating seamless user
-                experiences, I specialize in building modern web applications
-                using React, Tailwind CSS, and other cutting-edge technologies.
+                I am a passionate frontend developer and tech enthusiast currently
+                pursuing my B.Tech at MIT Academy of Engineering. With a keen eye for
+                design and a love for creating seamless user experiences, I specialize
+                in building modern web applications using React, Tailwind CSS, and
+                other cutting-edge technologies.
               </p>
               <p className="text-gray-600 text-lg leading-relaxed mt-4">
-                Beyond coding, I'm deeply interested in UI/UX design principles
-                and constantly explore new technologies to stay at the forefront
-                of web development. My goal is to create digital experiences
-                that not only look beautiful but also solve real-world problems
-                effectively.
+                Beyond coding, I'm deeply interested in UI/UX design principles and
+                constantly explore new technologies to stay at the forefront of web
+                development. My goal is to create digital experiences that not only
+                look beautiful but also solve real-world problems effectively.
               </p>
             </div>
           </div>
@@ -494,11 +493,59 @@ function App() {
             <h2 className="text-4xl font-bold text-center mb-12">Projects</h2>
           </div>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="project-card bg-white rounded-lg shadow-lg overflow-hidden">
+            {/* Project 1: Student Performance Analysis */}
+            <a
+              href="https://github.com/krishnarane2005/student-performance-analysis"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
               <div className="relative overflow-hidden">
                 <img
                   src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500&h=300"
-                  alt="Portfolio Project"
+                  alt="Student Performance Analysis"
+                  className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
+                />
+              </div>
+              <div className="p-6">
+                <h3 className="text-xl font-semibold mb-4">
+                  Student Performance Analysis
+                </h3>
+                <p className="text-gray-600 mb-4">
+                A web application project that evaluates student performance based on various factors like there make MSE ,ESE,CA and IA. Built using React, TypeScript, and SQL.
+                </p>
+                <div className="flex justify-between items-center">
+                  <div className="flex gap-2">
+                    <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                      React
+                    </span>
+                    <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                      TypeScript
+                    </span>
+                    <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                      SQL
+                    </span>
+                  </div>
+                  <div className="flex gap-2">
+                    <div className="text-gray-600 hover:text-gray-900 transition-colors">
+                      <Github size={20} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+
+            {/* Project 2: Personal Portfolio */}
+            <a
+              href="https://github.com/krishnarane2005/port"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="project-card bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+            >
+              <div className="relative overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500&h=300"
+                  alt="Personal Portfolio"
                   className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
                 />
               </div>
@@ -507,78 +554,34 @@ function App() {
                   Personal Portfolio
                 </h3>
                 <p className="text-gray-600 mb-4">
-                  A responsive personal portfolio website showcasing my skills
-                  and projects.
+                  A responsive personal portfolio website showcasing my skills, projects, and contact information. Built with React, Tailwind CSS, and deployed on GitHub Pages.
                 </p>
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2">
                     <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                      HTML
+                      React
                     </span>
                     <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                      CSS
+                      Tailwind CSS
+                    </span>
+                    <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
+                      GitHub Pages
                     </span>
                   </div>
                   <div className="flex gap-2">
-                    <a
-                      href="https://github.com/krishnarane2005/krishnarane2005.github.io"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
-                    >
+                    <div className="text-gray-600 hover:text-gray-900 transition-colors">
                       <Github size={20} />
-                    </a>
-                    <a
-                      href="https://krishnarane2005.github.io/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
-                    >
+                    </div>
+                    <div className="text-gray-600 hover:text-gray-900 transition-colors">
                       <ExternalLink size={20} />
-                    </a>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-            <div className="project-card bg-white rounded-lg shadow-lg overflow-hidden">
-              <div className="relative overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500&h=300"
-                  alt="DT Project"
-                  className="w-full h-48 object-cover transition-transform duration-300 hover:scale-110"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-4">DT Project</h3>
-                <p className="text-gray-600 mb-4">
-                  Project description and details coming soon.
-                </p>
-                <div className="flex justify-between items-center">
-                  <div className="flex gap-2">
-                    <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                      Coming
-                    </span>
-                    <span className="px-3 py-1 bg-gray-100 rounded-full text-sm">
-                      Soon
-                    </span>
-                  </div>
-                  <div className="flex gap-2">
-                    <a
-                      href="https://github.com/krishnarane2005/DT"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-600 hover:text-gray-900 transition-colors"
-                    >
-                      <Github size={20} />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>
-
       {/* Contact Section */}
       <section id="contact" className="py-20 bg-gray-50">
         <div className="container mx-auto px-6">
@@ -682,11 +685,10 @@ function App() {
                 </div>
                 {formStatus.message && (
                   <div
-                    className={`text-center p-3 rounded-lg ${
-                      formStatus.isError
-                        ? 'bg-red-100 text-red-700'
-                        : 'bg-green-100 text-green-700'
-                    }`}
+                    className={`text-center p-3 rounded-lg ${formStatus.isError
+                      ? 'bg-red-100 text-red-700'
+                      : 'bg-green-100 text-green-700'
+                      }`}
                   >
                     {formStatus.message}
                   </div>
@@ -695,11 +697,10 @@ function App() {
                   <button
                     type="submit"
                     disabled={formStatus.isSubmitting}
-                    className={`contact-button ${
-                      formStatus.isSubmitting
-                        ? 'opacity-75 cursor-not-allowed'
-                        : ''
-                    }`}
+                    className={`contact-button ${formStatus.isSubmitting
+                      ? 'opacity-75 cursor-not-allowed'
+                      : ''
+                      }`}
                   >
                     {formStatus.isSubmitting ? 'Sending...' : 'Send Message'}
                   </button>
