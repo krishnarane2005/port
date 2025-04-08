@@ -16,7 +16,7 @@ import {
   Heart,
 } from 'lucide-react';
 import Typewriter from 'typewriter-effect';
-
+import emailjs from '@emailjs/browser';
 function App() {
   const [formData, setFormData] = useState({
     name: '',
@@ -24,6 +24,7 @@ function App() {
     subject: '',
     message: '',
   });
+
   const [formStatus, setFormStatus] = useState({
     message: '',
     isError: false,
@@ -34,7 +35,7 @@ function App() {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
@@ -42,39 +43,81 @@ function App() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setFormStatus({ message: '', isError: false, isSubmitting: true });
+    if (!formData.name || !formData.email || !formData.message) {
+      setFormStatus({
+        message: 'Please fill in all required fields',
+        isError: true,
+        isSubmitting: false,
+      });
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      setFormStatus({
+        message: 'Please enter a valid email address',
+        isError: true,
+        isSubmitting: false,
+      });
+      return;
+    }
+
+    setFormStatus({
+      message: '',
+      isError: false,
+      isSubmitting: true
+    });
 
     try {
-      const response = await fetch('http://localhost:3000/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      await emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID);
 
-      const data = await response.json();
+      const response = await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject || 'New message from portfolio',
+          message: formData.message,
+        }
+      );
 
-      if (response.ok) {
+      console.log('EmailJS response:', response);
+
+      if (response.status === 200) {
         setFormStatus({
           message: 'Message sent successfully!',
           isError: false,
           isSubmitting: false,
         });
-        setFormData({ name: '', email: '', subject: '', message: '' });
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
       } else {
-        throw new Error(data.message || 'Failed to send message');
+        throw new Error(`EmailJS returned status: ${response.status}`);
       }
     } catch (error) {
+      let errorMessage = 'Failed to send message';
+      if (error instanceof Error) {
+        console.error('Full error details:', {
+          message: error.message,
+          stack: error.stack,
+          name: error.name
+        });
+        errorMessage = error.message.includes('429')
+          ? 'Too many attempts. Please wait a few minutes.'
+          : `Error: ${error.message}`;
+      }
+
       setFormStatus({
-        message:
-          error instanceof Error ? error.message : 'Failed to send message',
+        message: errorMessage,
         isError: true,
         isSubmitting: false,
       });
     }
-  };
-
+  }
   useEffect(() => {
     const observerOptions = {
       threshold: 0.1,
@@ -150,7 +193,7 @@ function App() {
           </div>
           <div className="flex justify-center gap-4 mb-12 fade-in">
             <button
-              onClick={() => window.open('/CV resume.pdf')}
+              onClick={() => window.open('/Resume.1.pdf')}
               className="bg-transparent hover:bg-white text-white hover:text-gray-900 font-semibold py-3 px-8 border-2 border-white hover:border-transparent rounded-full transition-all duration-300 hover:scale-105 flex items-center gap-2"
             >
               <FileText size={20} />
@@ -512,7 +555,7 @@ function App() {
                   Student Performance Analysis
                 </h3>
                 <p className="text-gray-600 mb-4">
-                A web application project that evaluates student performance based on various factors like there make MSE ,ESE,CA and IA. Built using React, TypeScript, and SQL.
+                  A web application project that evaluates student performance based on various factors like there make MSE ,ESE,CA and IA. Built using React, TypeScript, and SQL.
                 </p>
                 <div className="flex justify-between items-center">
                   <div className="flex gap-2">
@@ -637,7 +680,7 @@ function App() {
                       value={formData.name}
                       onChange={handleInputChange}
                       className="contact-input"
-                      placeholder="Tell me the name"
+                      placeholder="Tell me your name"
                       required
                     />
                   </div>
@@ -667,7 +710,6 @@ function App() {
                     onChange={handleInputChange}
                     className="contact-input"
                     placeholder="How can I help you?"
-                    required
                   />
                 </div>
                 <div>
@@ -702,7 +744,33 @@ function App() {
                       : ''
                       }`}
                   >
-                    {formStatus.isSubmitting ? 'Sending...' : 'Send Message'}
+                    {formStatus.isSubmitting ? (
+                      <>
+                        <svg
+                          className="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline"
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                          ></circle>
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                          ></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
                   </button>
                 </div>
               </form>
